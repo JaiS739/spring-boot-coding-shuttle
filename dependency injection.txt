@@ -1,0 +1,9 @@
+DI in the context of the spring framework is a design pattern and technique used to achieve loose coupling between components in a software application. 
+
+In a DI scenario, instead of component creating its dependency directly, the dependency are injected into the component from an external source, typically managed by a framework like spring.
+
+
+How to Inject dependencies?
+- There are two ways:-
+    - Constructor injection - using Constructor (recommended)
+    - Field injection - using autowired annotation
