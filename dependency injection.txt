@@ -6,4 +6,4 @@ In a DI scenario, instead of component creating its dependency directly, the dep
 How to Inject dependencies?
 - There are two ways:-
     - Constructor injection - using Constructor (recommended)
-    - Field injection - using autowired annotation
+    - Field injection - using Autowired annotation

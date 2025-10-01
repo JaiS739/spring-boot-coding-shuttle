@@ -1,0 +1,43 @@
+What is Auto configuration?
+- Auto configuration is a mechanism which automatically configures the spring application based on the  
+dependencies present on the  classpath and other application-specific settings.
+
+    This feature simplifies the set up and development process, allowing developers to focus more on  writing business logic rather than configuring the framework.
+
+What is classpath?
+-   It is a list of directories and JAR files that the JVM needed to look up classes your program needs.
+
+
+🔹 What is a JAR file in Java?
+
+JAR = Java ARchive
+
+It’s basically a compressed file (like a .zip) that bundles together:
+
+.class files (compiled bytecode)
+
+resources (images, properties files, XML, etc.)
+
+metadata (like MANIFEST.MF)
+
+👉 Think of it as a container for a Java library or application.
+
+🔹 Why use JAR files?
+
+Packaging → Instead of distributing hundreds of .class files, you put them all in one JAR.
+
+Reusability → You can import a JAR into another project as a library.
+
+Portability → A JAR works on any system with JVM.
+
+Execution → Some JARs are “executable JARs” (you can run them directly with java -jar).
+
+POM - Project Object Model
+
+
+What is a Bean?
+ - A Spring bean is a Java object that lives inside the Spring container and whose lifecycle (creation, dependency injection, destruction) is managed by Spring, not by you.
+
+
+What is IOC?
+ - The IoC Container in Spring is a framework component that creates, configures, and manages the lifecycle of objects (beans) and injects dependencies into them.

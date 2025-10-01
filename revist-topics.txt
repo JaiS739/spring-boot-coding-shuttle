@@ -1,0 +1,4 @@
+week 1 
+    - 1.6 - Auto configuration, application context, internal working of spring boot.
+
+    
