@@ -1,0 +1,54 @@
+Client (Browser/Postman)
+        |
+        v
+Embedded Server (Tomcat)
+        |
+        v
+DispatcherServlet (Spring MVC)
+        |
+        v
+Controller --> Service --> Repository --> DB
+        |
+        v
+Response back via DispatcherServlet
+        |
+        v
+Embedded Server sends HTTP response to client
+
+
+
+🔹 What DispatcherServlet actually does
+
+Think of DispatcherServlet as the traffic manager (Front Controller) in Spring MVC:
+
+Receives the request
+
+Every HTTP request first goes to DispatcherServlet.
+
+Finds the right controller
+
+It looks at the URL, HTTP method, and mapping annotations (@RequestMapping, @GetMapping, etc.).
+
+Routes the request to the appropriate @Controller or @RestController method.
+
+Handles input and validation (optional)
+
+Can apply interceptors, filters, or argument resolvers to preprocess request data.
+
+Calls the controller method
+
+Controller executes business logic (often via service layer).
+
+Processes the controller’s return value
+
+Converts the return object into appropriate response format:
+
+JSON (via @RestController / @ResponseBody)
+
+HTML (via view templates like Thymeleaf)
+
+Applies view resolvers if needed.
+
+Sends response back to client
+
+Finally, it sends the HTTP response to the client.
