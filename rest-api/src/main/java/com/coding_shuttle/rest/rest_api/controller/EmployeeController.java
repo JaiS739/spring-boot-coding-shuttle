@@ -1,37 +1,37 @@
 package com.coding_shuttle.rest.rest_api.controller;
 
 import com.coding_shuttle.rest.rest_api.dto.EmployeeDto;
+import com.coding_shuttle.rest.rest_api.entity.EmployeeEntity;
+import com.coding_shuttle.rest.rest_api.service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping(path="/employee")
 public class EmployeeController {
-    @GetMapping(path="/{employeeId}")
-    public EmployeeDto getEmployeeById(@PathVariable(name = "employeeId") Long id){
-        return new EmployeeDto(id, "John Doe", "johndoe@email.com", 39, LocalDate.of(2021, 9, 21), true);
+
+    private final EmployeeService employeeService;
+
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
-    @GetMapping()
-    public String getEmployee(@RequestParam(required = false) Integer age,
-                              @RequestParam(required = false) String sortBy){
+//    methods:-
+    @GetMapping(path="/{employeeId}")
+    public EmployeeDto getEmployeeById(@PathVariable(name = "employeeId") Long id){
+        return employeeService.getEmployeeById(id);
+    }
 
-        if(age!=null && sortBy!=null){
-
-            return "Hi age " + age + " sortBy " + sortBy;
-        }
-        return "Here is the employee list";
+    @GetMapping(path="allEmployee")
+    public List<EmployeeDto> getAllEmployees(){
+        return employeeService.getAllEmployee();
     }
 
     @PostMapping
-    public String createNewEmployee(){
-        return "Hello from post";
+    public EmployeeDto createNewEmployee(@RequestBody EmployeeDto inputValue){
+        return employeeService.createEmployee(inputValue);
     }
 
-    @PostMapping("/all")
-    public EmployeeDto getRealEmployeeData(@RequestBody EmployeeDto employeeData){
-        employeeData.setId(10L);
-        return employeeData;
-    }
 }

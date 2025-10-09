@@ -20,7 +20,5 @@ public class EmployeeDto {
 
     private Integer age;
 
-    private LocalDate dateOfJoining;
-
     private Boolean isActive;
 }
