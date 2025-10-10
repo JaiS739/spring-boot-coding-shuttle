@@ -13,12 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class EmployeeDto {
     private Long id;
-
     private String name;
-
-    private  String email;
-
-    private Integer age;
-
+    private String email;
     private Boolean isActive;
 }

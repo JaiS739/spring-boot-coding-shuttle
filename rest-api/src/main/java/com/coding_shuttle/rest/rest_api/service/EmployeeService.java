@@ -20,6 +20,7 @@ public class EmployeeService {
     }
 
 //    methods:-
+
     public EmployeeDto getEmployeeById(Long id){
         EmployeeEntity employeeEntity =  employeeRepository.findById(id).orElse(null);
         return modelMapper.map(employeeEntity, EmployeeDto.class);
@@ -36,6 +37,14 @@ public class EmployeeService {
     public EmployeeDto createEmployee(EmployeeDto inputValue){
         EmployeeEntity toSaveEntity = modelMapper.map(inputValue, EmployeeEntity.class);
         EmployeeEntity savedEntity = employeeRepository.save(toSaveEntity);
+        System.out.println("Incoming Request: ");
+        System.out.println(
+                inputValue.getId() + " | " +
+                        inputValue.getName() + " | " +
+                        inputValue.getEmail() + " | " +
+                        inputValue.getIsActive()
+        );
+
         return modelMapper.map(savedEntity, EmployeeDto.class);
     }
 }

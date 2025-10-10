@@ -3,13 +3,14 @@ package com.coding_shuttle.rest.rest_api.controller;
 import com.coding_shuttle.rest.rest_api.dto.EmployeeDto;
 import com.coding_shuttle.rest.rest_api.entity.EmployeeEntity;
 import com.coding_shuttle.rest.rest_api.service.EmployeeService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="/employee")
+@RequestMapping(path="/employeeDetails")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
@@ -19,18 +20,23 @@ public class EmployeeController {
     }
 
 //    methods:-
-    @GetMapping(path="/{employeeId}")
-    public EmployeeDto getEmployeeById(@PathVariable(name = "employeeId") Long id){
-        return employeeService.getEmployeeById(id);
-    }
 
-    @GetMapping(path="allEmployee")
-    public List<EmployeeDto> getAllEmployees(){
+    @GetMapping
+    public List<EmployeeDto> getAllEmployee(){
         return employeeService.getAllEmployee();
     }
 
+    @GetMapping("/{employeeId}")
+    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Long employeeId) {
+        EmployeeDto employee = employeeService.getEmployeeById(employeeId);
+        if (employee == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(employee);
+    }
+
     @PostMapping
-    public EmployeeDto createNewEmployee(@RequestBody EmployeeDto inputValue){
+    public EmployeeDto createEmployee(@RequestBody EmployeeDto inputValue){
         return employeeService.createEmployee(inputValue);
     }
 

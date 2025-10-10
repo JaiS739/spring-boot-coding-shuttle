@@ -1,19 +1,27 @@
 package com.coding_shuttle.rest.rest_api.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "employeePractice")
+@Getter
+@Setter
 public class EmployeeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "email")
     private String email;
 
-    private int age;
+    @Column(name = "age")
+    private Integer age;
 
-    private boolean isActive;
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive = true;
+
 }
