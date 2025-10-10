@@ -40,4 +40,14 @@ public class EmployeeController {
         return employeeService.createEmployee(inputValue);
     }
 
+    @PutMapping(path="/{employeeId}")
+    public EmployeeDto updateEmployee(@RequestBody EmployeeDto inputValue, @PathVariable Long employeeId){
+        return employeeService.updateEmployee(employeeId, inputValue);
+    }
+
+    @DeleteMapping(path="/{employeeId}")
+    public String deleteEmployee(@PathVariable Long employeeId){
+        return employeeService.deleteEmployee(employeeId);
+    }
+
 }
