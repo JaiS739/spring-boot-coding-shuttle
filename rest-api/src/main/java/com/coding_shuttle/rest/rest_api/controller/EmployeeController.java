@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path="/employeeDetails")
@@ -29,11 +30,10 @@ public class EmployeeController {
 
     @GetMapping("/{employeeId}")
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Long employeeId) {
-        EmployeeDto employee = employeeService.getEmployeeById(employeeId);
-        if (employee == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(employee);
+        Optional<EmployeeDto> employeeDto = employeeService.getEmployeeById(employeeId);
+        return employeeDto
+                .map(employeeDto1 -> ResponseEntity.ok(employeeDto1))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
