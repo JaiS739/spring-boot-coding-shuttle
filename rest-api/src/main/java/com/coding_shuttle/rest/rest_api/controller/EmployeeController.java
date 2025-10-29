@@ -3,6 +3,7 @@ package com.coding_shuttle.rest.rest_api.controller;
 import com.coding_shuttle.rest.rest_api.dto.EmployeeDto;
 import com.coding_shuttle.rest.rest_api.entity.EmployeeEntity;
 import com.coding_shuttle.rest.rest_api.service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +38,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public EmployeeDto createEmployee(@RequestBody EmployeeDto inputValue){
+    public EmployeeDto createEmployee(@RequestBody @Valid EmployeeDto inputValue){
         return employeeService.createEmployee(inputValue);
     }
 
