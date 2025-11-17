@@ -13,14 +13,14 @@ public class AnimalEntity {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-@Column(name="type")
+@Column(name="name")
     private String name;
 
 @Column(name="habitate")
     private String habitate;
 
 @Column(name="isDomestic")
-    private boolean isDomestic;
+    private Boolean isDomestic;
 
 @Column(name="secret")
     private String secret;
