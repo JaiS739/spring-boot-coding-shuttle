@@ -2,9 +2,8 @@ package com.codingshuttle.restpractice.restPractice.controller;
 
 import com.codingshuttle.restpractice.restPractice.dto.AnimalDto;
 import com.codingshuttle.restpractice.restPractice.service.AnimalService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +19,16 @@ public class AnimalController {
     @GetMapping()
     public List<AnimalDto> getAllAnimal () {
         return animalService.getAllEmployee();
+    }
+
+    @PostMapping()
+    public AnimalDto createAnimal(@RequestBody @Valid AnimalDto inputValue){
+        return animalService.createAnimal(inputValue);
+    }
+
+    @PutMapping(path="/{animalId}")
+    public AnimalDto updateAnimalById(@PathVariable Long animalId, @RequestBody AnimalDto inputValue){
+        return animalService.updateAnimalById(animalId, inputValue);
     }
 
 }

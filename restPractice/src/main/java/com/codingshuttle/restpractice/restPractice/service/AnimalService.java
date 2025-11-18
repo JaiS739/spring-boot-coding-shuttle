@@ -28,4 +28,21 @@ public class AnimalService {
                 .collect(Collectors.toList());
     }
 
+    public AnimalDto createAnimal (AnimalDto inputValue){
+        AnimalEntity toSaveEntity = modelMapper.map(inputValue, AnimalEntity.class);
+        AnimalEntity savedEntity = animalRepository.save(toSaveEntity);
+        return modelMapper.map(savedEntity, AnimalDto.class);
+    }
+
+    public AnimalDto updateAnimalById (Long animalId, AnimalDto inputValue){
+        AnimalEntity existing = animalRepository.findById(animalId)
+                .orElseThrow(() -> new RuntimeException("animal does not exist"));
+        existing.setName(inputValue.getName());
+        existing.setHabitate(inputValue.getHabitate());
+        existing.setDomestic(inputValue.isDomestic());
+
+        AnimalEntity entityToSave = animalRepository.save(existing);
+        return modelMapper.map(entityToSave, AnimalDto.class);
+    }
+
 }

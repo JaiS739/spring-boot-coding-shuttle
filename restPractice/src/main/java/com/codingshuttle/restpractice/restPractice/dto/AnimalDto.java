@@ -21,7 +21,4 @@ public class AnimalDto {
 
     @NotNull (message = "Please tick if the animal is domestic")
     private boolean isDomestic;
-
-    private String secret;
-
 }
