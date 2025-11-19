@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping(path="/animals")
 @RestController
@@ -34,6 +35,11 @@ public class AnimalController {
     @DeleteMapping(path="/{animalId}")
     public String deleteAnimal (@PathVariable Long animalId) {
         return animalService.deleteAnimal(animalId);
+    }
+
+    @PatchMapping(path="/{animalId}")
+    public AnimalDto updatePartialAnimalData(@PathVariable Long animalId, @RequestBody Map<String, Object> inputValue){
+        return animalService.updatePartialAnimalData(animalId, inputValue);
     }
 
 }

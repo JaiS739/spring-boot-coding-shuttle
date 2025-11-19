@@ -5,8 +5,11 @@ import com.codingshuttle.restpractice.restPractice.entities.AnimalEntity;
 import com.codingshuttle.restpractice.restPractice.repository.AnimalRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,13 +42,10 @@ public class AnimalService {
     }
 
     public AnimalDto updateAnimalById (Long animalId, AnimalDto inputValue){
-        AnimalEntity existing = animalRepository.findById(animalId)
-                .orElseThrow(() -> new RuntimeException("animal does not exist"));
-        existing.setName(inputValue.getName());
-        existing.setHabitate(inputValue.getHabitate());
-
-        AnimalEntity entityToSave = animalRepository.save(existing);
-        return modelMapper.map(entityToSave, AnimalDto.class);
+        AnimalEntity animalEntity = modelMapper.map(inputValue, AnimalEntity.class);
+        animalEntity.setId(animalId);
+        AnimalEntity saveData = animalRepository.save(animalEntity);
+        return modelMapper.map(saveData, AnimalDto.class);
     }
 
     public String deleteAnimal(Long animalId){
@@ -56,6 +56,18 @@ public class AnimalService {
             animalRepository.deleteById(animalId);
             return "Animal deleted successfully.";
         }
+    }
+
+    public AnimalDto updatePartialAnimalData(Long animalId, Map<String, Object> inputValue){
+        boolean exists = animalExists(animalId);
+        if(!exists) return null;
+        AnimalEntity animalEntity = animalRepository.findById(animalId).get();
+        inputValue.forEach((field, value) -> {
+            Field fieldToBeUpdated = ReflectionUtils.findField(AnimalEntity.class, field);
+            fieldToBeUpdated.setAccessible(true);
+            ReflectionUtils.setField(fieldToBeUpdated, animalEntity, value);
+        });
+        return  modelMapper.map(animalRepository.save(animalEntity), AnimalDto.class);
     }
 
 }
