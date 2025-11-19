@@ -31,4 +31,9 @@ public class AnimalController {
         return animalService.updateAnimalById(animalId, inputValue);
     }
 
+    @DeleteMapping(path="/{animalId}")
+    public String deleteAnimal (@PathVariable Long animalId) {
+        return animalService.deleteAnimal(animalId);
+    }
+
 }

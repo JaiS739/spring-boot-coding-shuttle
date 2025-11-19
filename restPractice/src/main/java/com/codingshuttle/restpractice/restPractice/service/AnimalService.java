@@ -19,6 +19,10 @@ public class AnimalService {
         this.modelMapper = modelMapper;
     }
 
+    public boolean animalExists(Long id){
+        return animalRepository.existsById(id);
+    }
+
     public List<AnimalDto> getAllEmployee(){
         List<AnimalEntity> animalEntities = animalRepository.findAll();
 
@@ -39,10 +43,19 @@ public class AnimalService {
                 .orElseThrow(() -> new RuntimeException("animal does not exist"));
         existing.setName(inputValue.getName());
         existing.setHabitate(inputValue.getHabitate());
-        existing.setDomestic(inputValue.isDomestic());
 
         AnimalEntity entityToSave = animalRepository.save(existing);
         return modelMapper.map(entityToSave, AnimalDto.class);
+    }
+
+    public String deleteAnimal(Long animalId){
+        boolean exists = animalExists(animalId);
+        if(!exists){
+            return "Animal Does not exist";
+        }else{
+            animalRepository.deleteById(animalId);
+            return "Animal deleted successfully.";
+        }
     }
 
 }
