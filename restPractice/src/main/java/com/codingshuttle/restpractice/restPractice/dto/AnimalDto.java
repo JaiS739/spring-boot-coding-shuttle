@@ -1,5 +1,6 @@
 package com.codingshuttle.restpractice.restPractice.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,5 +21,6 @@ public class AnimalDto {
     private String habitate;
 
     @NotNull (message = "Please tick if the animal is domestic")
+    @JsonProperty("isDomestic")
     private boolean isDomestic;
 }

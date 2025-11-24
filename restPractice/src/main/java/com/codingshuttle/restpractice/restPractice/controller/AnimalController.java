@@ -19,7 +19,12 @@ public class AnimalController {
 
     @GetMapping()
     public List<AnimalDto> getAllAnimal () {
-        return animalService.getAllEmployee();
+        return animalService.getAllAnimal();
+    }
+
+    @GetMapping(path="/{animalId}")
+    public AnimalDto getAnimalById(@PathVariable Long animalId){
+        return animalService.getAnimalById(animalId);
     }
 
     @PostMapping()

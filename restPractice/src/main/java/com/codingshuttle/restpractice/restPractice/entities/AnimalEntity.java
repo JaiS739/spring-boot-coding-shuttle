@@ -1,4 +1,5 @@
 package com.codingshuttle.restpractice.restPractice.entities;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,7 @@ public class AnimalEntity {
 @Column(name="habitate")
     private String habitate;
 
+@JsonProperty("isDomestic")
 @Column(name="isDomestic")
     private Boolean isDomestic;
 

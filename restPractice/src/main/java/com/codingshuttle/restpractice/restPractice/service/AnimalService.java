@@ -10,6 +10,7 @@ import org.springframework.util.ReflectionUtils;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,7 +27,7 @@ public class AnimalService {
         return animalRepository.existsById(id);
     }
 
-    public List<AnimalDto> getAllEmployee(){
+    public List<AnimalDto> getAllAnimal(){
         List<AnimalEntity> animalEntities = animalRepository.findAll();
 
         return animalEntities
@@ -34,6 +35,13 @@ public class AnimalService {
                 .map(animalEntity -> modelMapper.map(animalEntity, AnimalDto.class))
                 .collect(Collectors.toList());
     }
+
+    public AnimalDto getAnimalById(Long animalId) {
+        AnimalEntity animalEntity = animalRepository.findById(animalId)
+                .orElseThrow(() -> new RuntimeException("Animal not found"));
+        return modelMapper.map(animalEntity, AnimalDto.class);
+    }
+
 
     public AnimalDto createAnimal (AnimalDto inputValue){
         AnimalEntity toSaveEntity = modelMapper.map(inputValue, AnimalEntity.class);
@@ -58,16 +66,22 @@ public class AnimalService {
         }
     }
 
-    public AnimalDto updatePartialAnimalData(Long animalId, Map<String, Object> inputValue){
-        boolean exists = animalExists(animalId);
-        if(!exists) return null;
-        AnimalEntity animalEntity = animalRepository.findById(animalId).get();
-        inputValue.forEach((field, value) -> {
-            Field fieldToBeUpdated = ReflectionUtils.findField(AnimalEntity.class, field);
-            fieldToBeUpdated.setAccessible(true);
-            ReflectionUtils.setField(fieldToBeUpdated, animalEntity, value);
+    public AnimalDto updatePartialAnimalData(Long animalId, Map<String, Object> inputValue) {
+        Optional<AnimalEntity> optional = animalRepository.findById(animalId);
+
+        AnimalEntity animalEntity = optional.orElseThrow(
+                () -> new RuntimeException("Animal not found")
+        );
+        inputValue.forEach((fieldName, fieldValue) -> {
+            Field field = ReflectionUtils.findField(AnimalEntity.class, fieldName);
+            if (field == null) {
+                throw new RuntimeException("Invalid field: " + fieldName);
+            }
+            field.setAccessible(true); // to access the private value
+            ReflectionUtils.setField(field, animalEntity, fieldValue);
         });
-        return  modelMapper.map(animalRepository.save(animalEntity), AnimalDto.class);
+        return modelMapper.map(animalRepository.save(animalEntity), AnimalDto.class);
     }
+
 
 }
