@@ -3,10 +3,14 @@ package com.codingshuttle.restpractice.restPractice.controller;
 import com.codingshuttle.restpractice.restPractice.dto.AnimalDto;
 import com.codingshuttle.restpractice.restPractice.service.AnimalService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RequestMapping(path="/animals")
 @RestController
@@ -23,9 +27,19 @@ public class AnimalController {
     }
 
     @GetMapping(path="/{animalId}")
-    public AnimalDto getAnimalById(@PathVariable Long animalId){
-        return animalService.getAnimalById(animalId);
+    public ResponseEntity<AnimalDto> getAnimalById(@PathVariable Long animalId) {
+       Optional<AnimalDto> animalDto = animalService.getAnimalById(animalId);
+       return animalDto
+               .map(animalDto1 -> ResponseEntity.ok(animalDto1))
+               .orElseThrow(() -> new NoSuchElementException("Animal not found"));
     }
+
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<String> handleAnimalNotFound(){
+        return new ResponseEntity<>("Animal not found by the id", HttpStatus.NOT_FOUND);
+    }
+
 
     @PostMapping()
     public AnimalDto createAnimal(@RequestBody @Valid AnimalDto inputValue){

@@ -4,6 +4,7 @@ import com.codingshuttle.restpractice.restPractice.dto.AnimalDto;
 import com.codingshuttle.restpractice.restPractice.entities.AnimalEntity;
 import com.codingshuttle.restpractice.restPractice.repository.AnimalRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
@@ -36,10 +37,10 @@ public class AnimalService {
                 .collect(Collectors.toList());
     }
 
-    public AnimalDto getAnimalById(Long animalId) {
-        AnimalEntity animalEntity = animalRepository.findById(animalId)
-                .orElseThrow(() -> new RuntimeException("Animal not found"));
-        return modelMapper.map(animalEntity, AnimalDto.class);
+    public Optional<AnimalDto> getAnimalById(Long animalId) {
+        return animalRepository.findById(animalId) // this will create the optional here
+                .map(entity -> modelMapper.map(entity, AnimalDto.class));
+        // not returning orElseThrow because that will be done by the controller layer
     }
 
 
@@ -68,7 +69,6 @@ public class AnimalService {
 
     public AnimalDto updatePartialAnimalData(Long animalId, Map<String, Object> inputValue) {
         Optional<AnimalEntity> optional = animalRepository.findById(animalId);
-
         AnimalEntity animalEntity = optional.orElseThrow(
                 () -> new RuntimeException("Animal not found")
         );
@@ -82,6 +82,4 @@ public class AnimalService {
         });
         return modelMapper.map(animalRepository.save(animalEntity), AnimalDto.class);
     }
-
-
 }
