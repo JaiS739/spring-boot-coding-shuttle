@@ -1,6 +1,7 @@
 package com.codingshuttle.restpractice.restPractice.controller;
 
 import com.codingshuttle.restpractice.restPractice.dto.AnimalDto;
+import com.codingshuttle.restpractice.restPractice.exceptions.ResourceNotFoundException;
 import com.codingshuttle.restpractice.restPractice.service.AnimalService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -31,15 +32,8 @@ public class AnimalController {
        Optional<AnimalDto> animalDto = animalService.getAnimalById(animalId);
        return animalDto
                .map(animalDto1 -> ResponseEntity.ok(animalDto1))
-               .orElseThrow(() -> new NoSuchElementException("Animal not found"));
+               .orElseThrow(() -> new ResourceNotFoundException("Animal not found"));
     }
-
-
-    @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<String> handleAnimalNotFound(){
-        return new ResponseEntity<>("Animal not found by the id", HttpStatus.NOT_FOUND);
-    }
-
 
     @PostMapping()
     public AnimalDto createAnimal(@RequestBody @Valid AnimalDto inputValue){
