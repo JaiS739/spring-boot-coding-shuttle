@@ -2,6 +2,7 @@ package com.codingshuttle.restpractice.restPractice.service;
 
 import com.codingshuttle.restpractice.restPractice.dto.AnimalDto;
 import com.codingshuttle.restpractice.restPractice.entities.AnimalEntity;
+import com.codingshuttle.restpractice.restPractice.exceptions.ResourceNotFoundException;
 import com.codingshuttle.restpractice.restPractice.repository.AnimalRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -60,7 +61,7 @@ public class AnimalService {
     public String deleteAnimal(Long animalId){
         boolean exists = animalExists(animalId);
         if(!exists){
-            return "Animal Does not exist";
+            throw new ResourceNotFoundException("Animal not found with id " + animalId);
         }else{
             animalRepository.deleteById(animalId);
             return "Animal deleted successfully.";
