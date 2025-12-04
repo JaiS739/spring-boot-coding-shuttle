@@ -27,7 +27,7 @@ Every HTTP request first goes to DispatcherServlet.
 
 Finds the right controller
 
-It looks at the URL, HTTP method, and mapping annotations (@RequestMapping, @GetMapping, etc.).
+It looks at the URL, HTTP m jfdv12s7drbgQAnethod, and mapping annotations (@RequestMapping, @GetMapping, etc.).
 
 Routes the request to the appropriate @Controller or @RestController method.
 
