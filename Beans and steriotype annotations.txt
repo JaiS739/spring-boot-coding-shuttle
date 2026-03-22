@@ -1,0 +1,56 @@
+👉 What is a Bean in Spring?
+
+    - A Bean is simply an object that is created, managed, and controlled by the Spring container.
+
+Without Spring
+    StudentService service = new StudentService();
+
+With Spring (Bean)
+    @Service
+    public class StudentService {}  // this is not an object it is a class, stereotype annotations help to create bean of that class
+
+
+
+👉 Stereotype Annotations
+
+    These annotations tell Spring:
+
+    👉 “Create a Bean of this class”
+
+        They come from:
+        Spring Framework   
+
+        eg - 
+            1. @Component 👉 Base annotation (generic)
+            2. @Service 👉 Used for business logic layer
+            3. @Repository 👉 Used for database layer (DAO)
+            4. @Controller / @RestController 👉 Used for handling HTTP requests
+
+            👉 All of these are actually special types of @Component
+                @Component
+                    ↑
+                @Service
+                @Repository
+                @Controller
+
+Builder Design pattern - 
+    Builder is a design pattern used to create objects in a step-by-step, readable, and flexible way.
+
+            ProductEntity p = ProductEntity.builder()
+            .sku("Nestle")
+            .title("Chocolate")
+            .price(...)
+            .quantity(12)
+            .build();
+
+
+        🧠 Key Difference
+            Normal Object Creation             
+
+            ProductEntity p = new ProductEntity("Nestle", "Chocolate", 123.45, 12);
+                ❌ Problems:
+                    Hard to read eg what nestle represent is it a product or sku or what 
+                    Order matters (very risky) eg if we write Chocolate in place of nestle then it will be changed
+                    Not scalable for many fields   eg if number of arguments increased so hard to remember Order
+
+

@@ -1,0 +1,40 @@
+What is JDBC?
+    - JDBC stands for:
+        Java Database Connectivity
+        It is a Java API that allows a Java program to connect with a database.
+        In simple words:
+            👉 JDBC is a bridge between Java application and database.
+            Without JDBC, Java cannot communicate with the database.
+
+
+What is Hibernate?
+    - Hibernate is a Java framework that simplifies database operations.
+
+        It is an ORM framework.
+        ORM means  - Object Relational Mapping.
+        Hibernate helps you map Java objects to database tables automatically.            
+
+What is ORM (Object Relational Mapping)?
+
+    | Java Object | Database Table |
+    | ----------- | -------------- |
+    | Class       | Table          |
+    | Object      | Row            |
+    | Field       | Column         |
+
+
+    - Advantages of Hibernate
+
+        ✔ Reduces boilerplate code
+        ✔ No need to write SQL for basic operations
+        ✔ Database independent
+        ✔ Automatic table mapping
+        ✔ Easy CRUD operations
+        
+
+What is JPA?
+    - Java Persistence API (JPA) is a Java specification (set of rules) that defines how Java objects should  be stored and retrieved from a database.
+
+
+What is an Entity?
+    - An Entity is a Java object that is mapped to a database table using JPA annotations.

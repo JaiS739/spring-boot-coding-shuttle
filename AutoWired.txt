@@ -1,0 +1,20 @@
+👉 @Autowired tells Spring:
+
+“Give me an object of this class automatically, I don’t want to create it manually.”
+
+Without @Autowired
+
+    StudentService service = new StudentService();
+        ❌ Problem:
+            - You are manually creating object
+            - No control by Spring
+            - Not scalable
+
+With @Autowired
+    @Autowired
+    private StudentService service;
+
+    👉 Spring automatically:
+        - Creates object
+        - Manages lifecycle
+        - Injects it here
