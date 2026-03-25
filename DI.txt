@@ -1,0 +1,19 @@
+“Dependency Injection means the controller needs the repository, and it must be provided from outside.”
+
+❌ Without DI
+    class ProductController {
+        ProductRepositories repo = new ProductRepositories();
+    }
+    👉 Controller says:
+        “I will create my own dependency”
+
+✅ With DI
+    class ProductController {
+        ProductRepositories repo;
+
+        public ProductController(ProductRepositories repo) {
+            this.repo = repo;
+        }
+    }    
+    👉 Controller says:
+        “I need this dependency — please give it to me”
