@@ -1,0 +1,4 @@
+spring.datasource.url=jdbc:mysql://localhost:3306/production-ready-features?useSSL=false
+
+here useSSL means - Secure Socket Layer
+useSSL=false -> Do NOT use SSL (Secure Socket Layer) for the database connection 

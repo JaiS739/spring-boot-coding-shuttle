@@ -1,0 +1,62 @@
+🔹 1. Transaction
+    🔥 Definition
+        - A transaction is a group of database operations treated as a single unit.
+
+ACID - Atomicity Consistency Isolation Durable
+
+🔥 A — Atomicity
+    All operations happen or none happen
+
+    Example:
+    Debit ₹1000 from A
+    Credit ₹1000 to B
+    👉 If credit fails → debit is also undone ❌  
+
+🔥 C — Consistency
+    DB remains in a valid state
+
+    Example:
+    Total money should remain same
+    No negative invalid values
+    👉 Transaction ensures rules are followed
+
+🔥 I — Isolation
+    Transactions don’t interfere with each other
+
+    Example:
+    Two users updating same account
+    One transaction does not affect the other  
+    
+🔥 D — Durability
+    Once committed → data is permanent
+
+    Example:
+    Power failure after commit
+    👉 Data is still saved in DB ✅  
+
+
+🔹 2. @Transactional
+    🔥 Definition
+
+    Automatically manages transaction for a method.
+
+    ✅ What it does
+    Starts transaction at method entry
+    Tracks entity changes
+    Commits at success
+    Rolls back on failure        
+
+    🔁 Flow
+        @Transactional
+        public void updateUser() {
+            User user = userRepo.findById(1).get();
+            user.setName("Jai");
+        }
+
+        Behind the scenes:
+            Transaction starts
+            Entity fetched → Persistent
+            Changes made → tracked
+            Method ends →
+            Success → COMMIT
+            Error → ROLLBACK

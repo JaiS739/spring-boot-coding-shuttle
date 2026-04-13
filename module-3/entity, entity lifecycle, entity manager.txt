@@ -1,0 +1,97 @@
+🔹 1. What is a Hibernate Entity?
+    - A Hibernate Entity is just a Java class mapped to a database table.
+    - An entity class defines the table structure, while each instance of that entity represents a row in the database.
+
+    👉 In simple words:
+
+    Entity = Java object ↔ Database row
+
+🔹 2. Hibernate Entity Lifecycle (VERY IMPORTANT)
+
+    - An entity goes through different states during its life.
+
+    🌟 4 Main States:    
+
+    1. Transient State (New Object)
+    when we create object
+    👉 Object created but not saved in DB
+        User user = new User(); // Transient
+        user.setName("Jai");
+        ✔ Not tracked by Hibernate
+        ✔ No DB record
+
+    2. Persistent State (Managed)
+    happens when fetch and save
+
+    👉 Object is connected to DB & managed by Hibernate
+        entityManager.persist(user);
+        ✔ Stored in DB
+        ✔ Hibernate tracks changes automatically
+        A persistent entity is a Java object that is:
+
+        Managed by Hibernate
+        Inside Persistence Context
+        Tracked for changes
+
+
+    3. Detached State
+    happens when transactions ends
+
+    👉 Object was persistent but no longer tracked    
+        entityManager.detach(user);
+        ✔ Exists in DB
+        ❌ Changes are NOT tracked
+
+    4. Removed State
+    object is about to remove from the DB
+    👉 Object marked for deletion
+        entityManager.remove(user);
+        ✔ Will be deleted from DB
+
+
+🔄 Lifecycle Flow:
+Transient → Persistent → Detached → Removed      
+
+
+🔹 3. Entity Manager
+
+    The Entity Manager is the main interface used to interact with Hibernate/JPA.
+    👉 Think of it as:
+    "Manager that controls entity lifecycle and DB operations"
+
+
+🔥 What is Persistence Context?
+👉 Persistence Context = First-Level Cache = EntityManager’s memory
+    - It is a container that stores and manages all persistent (managed) entities during a transaction.
+
+
+🔹  4. Dirty Checking
+    🔥 Definition
+        Hibernate automatically detects changes in entity objects and updates the database.
+        Dirty vs Dirty Checking
+
+        🔹 6. Dirty vs Dirty Checking
+        Term	        |   Meaning
+        Dirty	        |   Object is modified
+        Dirty Checking	|   Hibernate detects modification
+
+
+🔹 5. Cascade
+    🔥 Definition
+        Defines how operations on a parent entity affect child entities.
+
+
+🔹 6. Complete Flow (VERY IMPORTANT)
+
+    @Transactional starts
+            ↓
+    Entity fetched → Persistent
+            ↓
+    Object modified → Dirty
+            ↓
+    Hibernate tracks changes
+            ↓
+    Transaction ends
+            ↓
+    Commit → DB updated ✅
+    Rollback → Changes discarded ❌

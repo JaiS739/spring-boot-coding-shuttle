@@ -1,0 +1,29 @@
+@Data 
+    It automatically generates:
+
+        ✔ Getters for all fields
+        ✔ Setters for all fields
+        ✔ toString()
+        ✔ equals() and hashCode()
+        ✔ Required constructor (for final fields)
+
+🔹 2. Why use @NoArgsConstructor in DTO?
+        ✔ Jackson (JSON → Object conversion)
+        When Spring receives a request:
+        {
+            "title": "Hello"
+        }        
+        It uses Jackson to convert JSON → Java object.
+
+
+
+        🔹 Serialization vs Deserialization
+    Type	        Meaning
+    Serialization	Java Object → JSON
+    Deserialization	JSON → Java Object
+
+    👉 Deserialization = converting incoming JSON request into Java object using Jackson, which needs a default constructor to create a new object first.
+
+🔹 3. Why use @NoArgsConstructor in Entity? 
+    Entity needs no-arg constructor for Hibernate to instantiate objects using reflection
+    

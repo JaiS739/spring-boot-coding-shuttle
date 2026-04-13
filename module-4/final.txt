@@ -1,0 +1,13 @@
+What does final mean?
+👉 You can change the object’s internal state, but you cannot change the reference.
+
+simple example -
+
+    final List<String> list = new ArrayList<>();
+    
+    ✅ Allowed (modifying object)
+        list.add("Hello");
+        list.add("World");
+    
+    ❌ Not allowed (changing reference)
+    list = new ArrayList<>(); // ERROR    
