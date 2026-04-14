@@ -11,4 +11,6 @@ public interface PostInterface {
 
     PostDTO getPostById(Long postId);
 
+    PostDTO updatePost(Long postId, PostDTO inputPost);
+
 }
