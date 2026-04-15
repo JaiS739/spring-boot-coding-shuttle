@@ -11,3 +11,49 @@ simple example -
     
     ❌ Not allowed (changing reference)
     list = new ArrayList<>(); // ERROR    
+
+
+one more example - 
+
+without final
+    StringBuilder sb = new StringBuilder("Hello"); - variable declared
+    sb = new StringBuilder("World"); - allowed, why StringBuilder is not there at the beginning because it is redeclaration not declaration
+    sb.append(" World") - allowed
+
+with final  
+    final StringBuilder sb = new StringBuilder("Hello");
+    sb = new StringBuilder("world"); - not allowed as you are changing reference 
+        because first object was object1 as value hello
+        now second object object2 as value world but with same reference to it as sb - not allowed
+
+
+| Situation                  | Change reference     | Modify object  |
+| -------------------------- | ----------------     | -------------- |
+| Normal variable            | ✅                  | ✅              |
+| `final` variable           | ❌                  | ✅ (if mutable) |
+| `final` + immutable object | ❌                  | ❌              |
+
+
+🧠 What is StringBuilder in Java?
+👉 StringBuilder is a mutable class used to create and modify strings efficiently
+
+🔹 Why do we need it?
+    In Java, normal strings (👉 String) are:
+    👉 immutable (cannot be changed)
+
+    ❌ Problem with String
+        String s = "Hello";
+        s = s + " World";
+        👉 This does NOT modify "Hello"
+        👉 It creates a new object "Hello World"
+
+    So internally:
+    "Hello"  → old object (waste)
+    "Hello World" → new object    
+    👉 Doing this many times = bad performance
+
+🔹 Solution: StringBuilder
+    StringBuilder sb = new StringBuilder("Hello");
+    sb.append(" World");    
+    👉 This modifies the SAME object
+    👉 No new object created every time

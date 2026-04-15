@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
+//   Whenever this exception occurs anywhere, call this method-
     public ResponseEntity<ApiError> handleResourceNotFoundException(ResourceNotFoundException exception){
         ApiError apiError = new ApiError(exception.getLocalizedMessage(), HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
