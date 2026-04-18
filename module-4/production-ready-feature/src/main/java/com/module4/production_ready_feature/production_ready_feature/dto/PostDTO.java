@@ -9,7 +9,6 @@ import org.hibernate.envers.NotAudited;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Audited
 public class PostDTO {
     private Long id;
     private String title;
