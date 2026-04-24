@@ -1,0 +1,53 @@
+📊 Log levels (very important)
+
+From highest priority to lowest:
+
+ERROR → serious issues
+WARN → something unexpected
+INFO → normal flow (most used)
+DEBUG → detailed debugging
+TRACE → very detailed
+
+⚙️ Configure logging level
+In application.properties
+
+logging.level.root=INFO
+logging.level.com.yourpackage=DEBUG
+
+
+Use cases-
+
+🔴 ERROR → something is broken
+    Use when the application fails to do something important
+    logger.error("Payment failed for user {}", userId);
+    ✔ Use when:
+        Exception occurs
+        DB/API is down
+        Critical feature fails
+
+🟠 WARN → something is wrong but app still works
+    Not a failure, but unexpected or risky      
+    ✔ Use when:
+        Fallback logic is triggered
+        Data is suspicious
+        Performance is degrading
+        👉 Signals: “this might become a problem”  
+
+🔵 INFO → normal business flow (MOST IMPORTANT)
+    This is what you’ll use the most.
+
+    ✔ Use when:
+        Key business events happen
+        App starts/stops
+        Important operations succeed
+        👉 In production, INFO logs tell the story of your system
+
+
+🟢 DEBUG → for developers (not for production usually)
+    Detailed internal behavior        
+
+    ✔ Use when:
+        Debugging logic
+        Checking variable values
+        Understanding flow
+        👉 Usually turned OFF in production

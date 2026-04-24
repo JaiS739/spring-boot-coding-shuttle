@@ -29,6 +29,12 @@ public class EmployeeService implements EmployeeImpl {
     };
 
     @Override
+    public EmployeeDTO getEmployeeById(Long employeeId){
+        EmployeeEntity employeeEntity =  employeeRepository.findById(employeeId).orElseThrow();
+        return modelMapper.map(employeeEntity, EmployeeDTO.class);
+    }
+
+    @Override
     public EmployeeDTO addEmployee(EmployeeDTO employeeData){
         EmployeeEntity employeeEntity = modelMapper.map(employeeData, EmployeeEntity.class);
         EmployeeEntity savedEmployee = employeeRepository.save(employeeEntity);

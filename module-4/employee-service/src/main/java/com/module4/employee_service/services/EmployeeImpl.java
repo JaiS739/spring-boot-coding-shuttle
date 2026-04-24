@@ -8,6 +8,9 @@ import java.util.List;
 public interface EmployeeImpl {
     List<EmployeeDTO> getAllEmployee();
 
+    EmployeeDTO getEmployeeById(Long employeeId);
+
     EmployeeDTO addEmployee(EmployeeDTO employeeData);
+
 
 }

@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/employee")
-
+@RequestMapping("/employees")
 public class EmployeeController {
     private final EmployeeImpl employeeImpl;
 
@@ -20,6 +19,11 @@ public class EmployeeController {
     @GetMapping
     public List<EmployeeDTO> getAllEmployee(){
         return employeeImpl.getAllEmployee();
+    }
+
+    @GetMapping("/{employeeId}")
+    public EmployeeDTO getEmployeeById(@PathVariable Long employeeId){
+        return employeeImpl.getEmployeeById(employeeId);
     }
 
     @PostMapping
